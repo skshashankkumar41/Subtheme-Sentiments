@@ -86,9 +86,10 @@ def encode_labels(df):
 # splitting the dataset and saving it 
 def split_and_save(df, split_size = 0.2):
     df_train, df_test = train_test_split(df, test_size=split_size)
-
-    df_train.to_csv('output/train.csv',index = False)
-    df_test.to_csv('output/test.csv', index = False)
+    df_train = df_train.reset_index(drop=True)
+    df_test = df_test.reset_index(drop=True)
+    df_train.to_pickle('output/train.pkl')
+    df_test.to_pickle('output/test.pkl')
     print("Preprocessed and Saved...")
     
     return True
