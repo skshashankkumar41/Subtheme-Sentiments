@@ -1,28 +1,7 @@
 import pandas as pd 
 from sklearn.preprocessing import MultiLabelBinarizer
 from collections import Counter
-
-# loading the dataframe and doing basic preprocessing
-def loader(dfPath):
-    df = pd.read_csv(dfPath,header = None)
-    df = df.fillna('')
-    
-    # to get all the multi labels in one column
-    columns = ['text']
-    labels = []
-    
-    for idx in range(1, 15):
-        name = 'label_' + str(idx)
-        labels.append(name)
-        columns.append(name)
-
-    df.columns = columns
-
-    df['target'] = df[labels].values.tolist()
-
-    df =  df[['text','target']]
-
-    return df 
+import pickle 
 
 # remove null labels 
 def remove_empty(text):
@@ -57,6 +36,9 @@ def remove_noisy_labels(df):
         for nLabel in noisy_labels:
             if nLabel in df.iloc[i,1]:
                 df.iloc[i,1].remove(nLabel)
+    
+    # to remove datapoints that doesn't have any labels 
+    df = df[df["target"].str.len() != 0]
 
     return df 
 
@@ -90,4 +72,47 @@ def encode_labels(df):
     le = MultiLabelBinarizer()
     df['encoded'] = le.fit_transform(df.target.tolist()).tolist()
     df = df[['text','encoded']]
+
+    encoder = open('output/encoder.pkl', 'ab') 
+    pickle.dump(le, encoder)                      
+    encoder.close()
+    
     return df 
+
+# loading the dataframe and doing basic preprocessing
+def loader(dfPath):
+    df = pd.read_csv(dfPath,header = None)
+    df = df.fillna('')
+    
+    # to get all the multi labels in one column
+    columns = ['text']
+    labels = []
+    
+    for idx in range(1, 15):
+        name = 'label_' + str(idx)
+        labels.append(name)
+        columns.append(name)
+
+    df.columns = columns
+
+    df['target'] = df[labels].values.tolist()
+
+    df['target'] = df['target'].map(remove_empty)
+    df['target'] = df['target'].map(remove_space)
+
+    df =  df[['text','target']]
+
+    replace_label(df, 'advisor/agent service positive','advisoragent service positive')
+    replace_label(df, 'advisor/agent service negative','advisoragent service negative')
+    replace_label(df, 'tyre age/dot code negative','tyre agedot code negative')
+    
+    df = remove_noisy_labels(df)
+    df = combine_labels(df)
+    df = encode_labels(df)
+
+    return df 
+
+if __name__ == '__main__':
+    df = loader('input/Evaluation-dataset.csv')
+    print(df.head(1))
+    
