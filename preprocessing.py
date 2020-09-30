@@ -1,7 +1,8 @@
 import pandas as pd 
-from sklearn.preprocessing import MultiLabelBinarizer
-from collections import Counter
 import pickle 
+from collections import Counter
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.model_selection import train_test_split
 
 # remove null labels 
 def remove_empty(text):
@@ -31,6 +32,7 @@ def get_noisy_labels(df):
 
 # to remove nosiy labels from the dataframe
 def remove_noisy_labels(df):
+    print("Removing noisy labels...")
     noisy_labels = get_noisy_labels(df)
     for i in range(len(df)):
         for nLabel in noisy_labels:
@@ -44,6 +46,7 @@ def remove_noisy_labels(df):
 
 # combine labels that have very low frequency to a single label based on threshold
 def combine_labels(df,min_samples = 50):
+    print("Combining labels...")
     label_counts = df.target.explode().value_counts()
     label_names = label_counts.index
     
@@ -69,6 +72,7 @@ def combine_labels(df,min_samples = 50):
 
 # encode labels for training
 def encode_labels(df):
+    print("Encoding Labels...")
     le = MultiLabelBinarizer()
     df['encoded'] = le.fit_transform(df.target.tolist()).tolist()
     df = df[['text','encoded']]
@@ -78,6 +82,16 @@ def encode_labels(df):
     encoder.close()
     
     return df 
+
+# splitting the dataset and saving it 
+def split_and_save(df, split_size = 0.2):
+    df_train, df_test = train_test_split(df, test_size=split_size)
+
+    df_train.to_csv('output/train.csv',index = False)
+    df_test.to_csv('output/test.csv', index = False)
+    print("Preprocessed and Saved...")
+    
+    return True
 
 # loading the dataframe and doing basic preprocessing
 def loader(dfPath):
@@ -114,5 +128,5 @@ def loader(dfPath):
 
 if __name__ == '__main__':
     df = loader('input/Evaluation-dataset.csv')
-    print(df.head(1))
+    split_and_save(df)
     
