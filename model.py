@@ -1,9 +1,5 @@
 import torch
 from transformers import BertModel, BertPreTrainedModel, BertTokenizer
-import numpy as np
-from sklearn import metrics
-import pickle
-import os
 
 PRE_TRAINED_MODEL = "bert-base-uncased"
 

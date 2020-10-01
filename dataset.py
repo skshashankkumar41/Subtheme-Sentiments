@@ -1,10 +1,11 @@
 import torch
+import pandas as pd
 from torch.utils.data import Dataset, DataLoader
 
 # Pytorch dataset for the training of BERT model
 class SentimentDataset(Dataset):
-    def __init__(self, df, tokenizer, max_len):
-        self.df = df
+    def __init__(self, df_path, tokenizer, max_len):
+        self.df = pd.read_pickle(df_path)
         self.text = self.df.text 
         self.targets = self.df.encoded
         self.max_len = max_len 
