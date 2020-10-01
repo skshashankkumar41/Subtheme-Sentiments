@@ -70,6 +70,15 @@ def combine_labels(df,min_samples = 50):
 
     return df
 
+# undesample very frequent labels 
+def undersample_labels(df, labels, frac):
+    udf = df[df.target.apply(lambda x: x == labels)]
+    indexesToDrop = udf.index.values
+    underSampleLabel = udf.sample(frac = frac)
+    df = df.drop(indexesToDrop)
+    df = df.append(underSampleLabel)
+    return df
+
 # encode labels for training
 def encode_labels(df):
     print("Encoding Labels...")
@@ -123,6 +132,9 @@ def loader(dfPath):
     
     df = remove_noisy_labels(df)
     df = combine_labels(df)
+    df = undersample_labels(df, ['value for money positive'], 0.1)
+    df = undersample_labels(df, ['garage service positive'], 0.2)
+    df = undersample_labels(df, ['value for money positive','garage service positive'], 0.2)
     df = encode_labels(df)
 
     return df 
