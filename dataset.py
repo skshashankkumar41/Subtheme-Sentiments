@@ -6,7 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 class SentimentDataset(Dataset):
     def __init__(self, df_path, tokenizer, max_len):
         self.df = pd.read_pickle(df_path)
-        self.text = self.df.text 
+        self.texts = self.df.text 
         self.targets = self.df.encoded
         self.max_len = max_len 
         self.tokenizer = tokenizer
@@ -15,8 +15,8 @@ class SentimentDataset(Dataset):
         return self.df.shape[0]
 
     def __getitem__(self,index):
-        text = self.text[index]
-        
+        text = self.texts[index]
+        target = self.targets[index]
         inputs = self.tokenizer.encode_plus(
             text,
             None,
@@ -35,5 +35,5 @@ class SentimentDataset(Dataset):
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
             'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
-            'targets': torch.tensor(self.data['encoded'][index], dtype=torch.long)
+            'targets': torch.tensor(target, dtype=torch.long)
         }

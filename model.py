@@ -4,8 +4,8 @@ from transformers import BertModel, BertPreTrainedModel, BertTokenizer
 PRE_TRAINED_MODEL = "bert-base-uncased"
 
 class SentimentMultilabel(BertPreTrainedModel):
-    def __init__(self, num_labels):
-        super(SentimentMultilabel, self).__init__()
+    def __init__(self, num_labels, config):
+        super(SentimentMultilabel, self).__init__(config)
         self.bert = BertModel.from_pretrained(PRE_TRAINED_MODEL)
         self.drop = torch.nn.Dropout(0.3)
         self.classifier = torch.nn.Linear(768, num_labels)
