@@ -3,6 +3,7 @@ from transformers import BertModel, BertPreTrainedModel, BertTokenizer
 
 PRE_TRAINED_MODEL = "bert-base-uncased"
 
+# Bert Pretrained model with final classifier 
 class SentimentMultilabel(BertPreTrainedModel):
     def __init__(self, num_labels, config):
         super(SentimentMultilabel, self).__init__(config)

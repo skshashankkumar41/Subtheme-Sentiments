@@ -6,6 +6,7 @@ MAX_LEN = 64
 PRE_TRAINED_MODEL = "bert-base-uncased"
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL)
 
+# create datasets from preprocessed train and test files and then return data loaders for both
 def get_loader(rootPath, train_batch_size=8, test_batch_size = 4, shuffle=True, num_workers=8, pin_memory=True):
     trainDataset = SentimentDataset(rootPath + 'train.pkl', tokenizer, MAX_LEN)
     testDataset = SentimentDataset(rootPath + 'test.pkl', tokenizer, MAX_LEN)
