@@ -46,7 +46,7 @@ def remove_noisy_labels(df):
     return df 
 
 # combine labels that have very low frequency to a single label based on threshold
-def combine_labels(df,min_samples = 50):
+def combine_labels(df,min_samples = 100):
     print("Combining labels...")
     label_counts = df.target.explode().value_counts()
     label_names = label_counts.index
