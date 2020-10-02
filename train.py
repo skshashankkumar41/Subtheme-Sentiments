@@ -5,6 +5,7 @@ from transformers import BertTokenizer, BertConfig
 from model import SentimentMultilabel
 from dataloader import get_loader
 from sklearn import metrics
+from utils import save_checkpoint
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_config = BertConfig()
@@ -92,6 +93,8 @@ def train():
         eval_metrics["val_loss"].append(val_loss)
     
     save_metrics(eval_metrics,'bert_base')
+    checkpoint = {"state_dict": model.state_dict()}
+    save_checkpoint(checkpoint)
     return True
 
 def validate(model, testLoader):
