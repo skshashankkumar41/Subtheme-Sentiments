@@ -9,7 +9,7 @@ from sklearn import metrics
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_config = BertConfig()
 num_labels = 23
-lr = 1e-05
+lr = 1e-04
 epochs = 10
 
 eval_metrics = {
@@ -24,30 +24,11 @@ eval_metrics = {
             "val_hamming_loss": [],
         }
 
-# ref- https://www.kaggle.com/c/tgs-salt-identification-challenge/discussion/65938
-# class FocalLossLogits(torch.nn.Module):
-#     def __init__(self, alpha=1, gamma=2):
-#         super(FocalLossLogits, self).__init__()
-#         self.alpha = alpha
-#         self.gamma = gamma
-
-#     def forward(self, inputs, targets):
-#         BCE_loss = torch.nn.BCEWithLogitsLoss()(inputs, targets)
-
-#         pt = torch.exp(-BCE_loss)
-
-#         f_loss = self.alpha * (1 - pt) ** self.gamma * BCE_loss
-
-#         return torch.mean(f_loss)
-
-# def loss_fun(outputs, targets):
-#     return FocalLossLogits()(outputs, targets)
-
 def loss_fun(outputs, targets):
     return torch.nn.BCEWithLogitsLoss()(outputs, targets)
 
 def print_metrics(true, pred, loss, type):
-    pred = np.array(pred) >= 0.5
+    pred = np.array(pred) >= 0.35
     hamming_loss = metrics.hamming_loss(true,pred)
     precision_micro = metrics.precision_score(true, pred, average='micro',zero_division = 1)
     recall_micro = metrics.recall_score(true, pred, average='micro',zero_division = 1)
