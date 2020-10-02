@@ -26,7 +26,6 @@ Calculate metrics for each label, and find their unweighted mean. This does not 
 ## Results 
 After 5 Epochs model started overfitting. More Detail in [Models Analysis](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/Model-Analysis.pdf) 
 ### Evaluation 
-<br>
 <table class="tg">
 <thead>
   <tr>
