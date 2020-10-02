@@ -4,9 +4,9 @@ Idea is to develop an approach that given a sample will identify the sub themes 
 
 
 ## Approach
-I considered this problem as a Multi-Label classification and used pre-trained BERT models with fine-tuning to train. By doing [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/Data-Exploration.pdf) I came to know there are around 10k datapoints and around 90 unique labels but most of them are noisy and are present in very low frequency. So, after doing some preprocessing and undersampling some more frequently occuring at the end we have 23 unique labels and around 6k datapoints. Look [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/Data-Exploration.pdf) for more details.
+I considered this problem as a Multi-Label classification and used pre-trained BERT models with fine-tuning to train. By doing [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) I came to know there are around 10k datapoints and around 90 unique labels but most of them are noisy and are present in very low frequency. So, after doing some preprocessing and undersampling some more frequently occuring at the end we have 23 unique labels and around 6k datapoints. Look [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) for more details.
 
-I choosed Pretrained BERT models to leverage the information of Language models and as the data is mostly consist of reviews, Language models would work fine and also It is very easy to Implement.
+I choosed Pretrained BERT models to leverage the information of Language models and as the data is mostly consist of reviews, Language models would work fine and also It is very easy to Implement. I have used Binary Cross Entropy with Logits as Loss Function.
 
 ## Performance Metrics 
 **Micro f1 score:**
@@ -24,7 +24,7 @@ Calculate metrics for each label, and find their unweighted mean. This does not 
 [https://www.kaggle.com/wiki/HammingLoss](https://www.kaggle.com/wiki/HammingLoss)
 
 ## Results 
-After 5 Epochs model started overfitting. More Detail in [Models Analysis](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/Model-Analysis.pdf) 
+After 5 Epochs model started overfitting. More Detail in [Models Analysis](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Model-Analysis.pdf) 
 ### Evaluation 
 <table class="tg">
 <thead>
@@ -58,6 +58,26 @@ After 5 Epochs model started overfitting. More Detail in [Models Analysis](https
 </tbody>
 </table>
 
+## Shortcomings and Improvements 
+1. As in [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf), we combined labels to single label based on sentiment which have frequency less than 100 due to which we are ignoring some labels, we can improve this by oversampling those labels by using combinations of co-occuring labels.
+2. By Experimenting with layers on top of pre-trained BERT could also improve result.
+3. By doing some Parameter tuning of Batch Sizes, Learning Rate, we could improve results.
+4. I have used BCE Loss, some other loss functions could also improve results.
+
+## Usage
+#### Install project dependencies from requirements.txt
+```
+pip install -r requirements.txt
+```
+
+#### Preprocessing Data and Saving Train and Validation Data Pickel File
+```
+python preprocess.py
+```
+#### Training and Evaluating Model 
+```
+python train.py
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
