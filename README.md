@@ -1,9 +1,11 @@
 # Subtheme Sentiments 
 
 Idea is to develop an approach that given a sample will identify the sub themes along with their respective sentiments.
+
 <center>
 <a href="https://ibb.co/n0SSfHx"><img src="https://i.ibb.co/yRJJ5wH/Screenshot-2020-10-03-042959.jpg" alt="Screenshot-2020-10-03-042959" border="0"></a>
 </center>
+
 ## Approach
 I considered this problem as a Multi-Label classification and used pre-trained BERT models with fine-tuning to train. By doing [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) I came to know there are around 10k datapoints and around 90 unique labels but most of them are noisy and are present in very low frequency. So, after doing some preprocessing and undersampling some more frequently occuring at the end we have 23 unique labels and around 6k datapoints. Look [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) for more details.
 
