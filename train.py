@@ -37,6 +37,7 @@ def print_metrics(true, pred, loss, type):
     f1_score_micro = metrics.f1_score(true, pred, average='micro',zero_division = 1)
     f1_score_macro = metrics.f1_score(true, pred, average='macro',zero_division = 1)
     print("-------{} Evaluation--------".format(type))
+    print("BCE Loss: {:.4f}".format(loss))
     print("Hamming Loss: {:.4f}".format(hamming_loss))
     print("Precision Micro: {:.4f}, Recall Micro: {:.4f}, F1-measure Micro: {:.4f}".format(precision_micro, recall_micro, f1_score_micro))
     print("Precision Macro: {:.4f}, Recall Macro: {:.4f}, F1-measure Macro: {:.4f}".format(precision_macro, recall_macro, f1_score_macro))
