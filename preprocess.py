@@ -33,6 +33,7 @@ def get_noisy_labels(df):
 # to remove nosiy labels from the dataframe
 def remove_noisy_labels(df):
     print("Removing noisy labels...")
+    df = df.drop([384]) # outlier with 14 labels 
     noisy_labels = get_noisy_labels(df)
     for i in range(len(df)):
         for nLabel in noisy_labels:
