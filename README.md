@@ -3,7 +3,7 @@
 Idea is to develop an approach that given a sample will identify the sub themes along with their respective sentiments.
 
 <center>
-<a href="https://ibb.co/n0SSfHx"><img src="https://i.ibb.co/yRJJ5wH/Screenshot-2020-10-03-042959.jpg" alt="Screenshot-2020-10-03-042959" border="0"></a>
+<img src="https://i.ibb.co/yRJJ5wH/Screenshot-2020-10-03-042959.jpg" alt="Screenshot-2020-10-03-042959" border="0">
 </center>
 
 ## Approach
