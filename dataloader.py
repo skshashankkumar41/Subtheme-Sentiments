@@ -2,7 +2,7 @@ from dataset import SentimentDataset
 from transformers import BertTokenizer
 from torch.utils.data import DataLoader
 
-MAX_LEN = 64
+MAX_LEN = 128
 PRE_TRAINED_MODEL = "bert-base-uncased"
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL)
 
@@ -14,7 +14,7 @@ def get_loader(rootPath, train_batch_size=8, test_batch_size = 4, shuffle=True, 
     trainLoader = DataLoader(
         dataset=trainDataset,
         batch_size=train_batch_size,
-        shuffl=shuffle,
+        shuffle=shuffle,
         num_workers=num_workers,
         pin_memory=pin_memory
     )
@@ -22,7 +22,7 @@ def get_loader(rootPath, train_batch_size=8, test_batch_size = 4, shuffle=True, 
     testLoader = DataLoader(
         dataset=testDataset,
         batch_size=test_batch_size,
-        shuffl=shuffle,
+        shuffle=shuffle,
         num_workers=num_workers,
         pin_memory=pin_memory
     )
