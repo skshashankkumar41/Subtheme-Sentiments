@@ -51,7 +51,6 @@ def save_metrics(eval_metrics,file_name):
     return True
 
 def train():
-    
     model = SentimentMultilabel(num_labels,model_config).to(device)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
 
