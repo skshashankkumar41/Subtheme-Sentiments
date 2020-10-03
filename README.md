@@ -75,20 +75,20 @@ After 5 Epochs model started overfitting. More Detail in [Models Analysis](https
 ## Usage
 Clone the repository and run the following commands from the repository directory.
 #### Install project dependencies from requirements.txt
-```
+```bash
 pip install -r requirements.txt
 ```
 
 #### Preprocessing Data and Saving Train and Validation Data Pickel File
-```
+```python
 python preprocess.py
 ```
 #### Training, Evaluating and Saving Model 
-```
+```python
 python train.py
 ```
 ### Inference
-```
+```python
 python inference.py --text "Your Review Text"
 
 Example -> python inference.py --text "Good prices. easy to arrange local fitting"
