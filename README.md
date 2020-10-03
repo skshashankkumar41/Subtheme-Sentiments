@@ -90,6 +90,9 @@ python train.py
 ### Inference
 ```
 python inference.py --text "Your Review Text"
+
+Example -> python inference.py --text "Good prices. easy to arrange local fitting"
+Output -> ['ease of booking positive', 'location positive', 'value for money positive']
 ```
 
 ## Files 
