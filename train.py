@@ -1,17 +1,18 @@
 import torch
 import numpy as np
 import pickle
+import config
 from transformers import BertTokenizer, BertConfig
 from model import SentimentMultilabel
 from dataloader import get_loader
-from sklearn import metrics
-from utils import save_checkpoint
+from validate import validate
+from utils import save_checkpoint,print_metrics, save_metrics                                 
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = config.device
 model_config = BertConfig()
-num_labels = 23
-lr = 1e-04
-epochs = 10
+num_labels = config.NUM_LABELS
+lr = config.LEARNING_RATE
+epochs = config.EPOCHS
 
 eval_metrics = {
             "epochs": [],
@@ -27,29 +28,6 @@ eval_metrics = {
 
 def loss_fun(outputs, targets):
     return torch.nn.BCEWithLogitsLoss()(outputs, targets)
-
-def print_metrics(true, pred, loss, type):
-    pred = np.array(pred) >= 0.35
-    hamming_loss = metrics.hamming_loss(true,pred)
-    precision_micro = metrics.precision_score(true, pred, average='micro',zero_division = 1)
-    recall_micro = metrics.recall_score(true, pred, average='micro',zero_division = 1)
-    precision_macro = metrics.precision_score(true, pred, average='macro',zero_division = 1)
-    recall_macro = metrics.recall_score(true, pred, average='macro',zero_division = 1)
-    f1_score_micro = metrics.f1_score(true, pred, average='micro',zero_division = 1)
-    f1_score_macro = metrics.f1_score(true, pred, average='macro',zero_division = 1)
-    print("-------{} Evaluation--------".format(type))
-    print("BCE Loss: {:.4f}".format(loss))
-    print("Hamming Loss: {:.4f}".format(hamming_loss))
-    print("Precision Micro: {:.4f}, Recall Micro: {:.4f}, F1-measure Micro: {:.4f}".format(precision_micro, recall_micro, f1_score_micro))
-    print("Precision Macro: {:.4f}, Recall Macro: {:.4f}, F1-measure Macro: {:.4f}".format(precision_macro, recall_macro, f1_score_macro))
-    print("------------------------------------")
-    return f1_score_micro, f1_score_macro, hamming_loss, loss 
-
-def save_metrics(eval_metrics,file_name):
-    eval = open('output/{}_metrics.pkl'.format(file_name), 'ab') 
-    pickle.dump(eval_metrics, eval)                      
-    eval.close()
-    return True
 
 def train():
     model = SentimentMultilabel(num_labels,model_config).to(device)
@@ -96,24 +74,6 @@ def train():
     checkpoint = {"state_dict": model.state_dict()}
     save_checkpoint(checkpoint)
     return True
-
-def validate(model, testLoader):
-    model.eval()
-    val_targets = []
-    val_outputs = []
-    with torch.no_grad():
-        for _, data in enumerate(testLoader):
-            ids = data['ids'].to(device, dtype=torch.long)
-            mask = data['mask'].to(device, dtype=torch.long)
-            token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
-            targets = data['targets'].to(device, dtype=torch.float)
-            outputs = model(ids, mask, token_type_ids)
-            loss = loss_fun(outputs, targets)
-            epoch_loss = loss.item()
-            val_targets.extend(targets.cpu().detach().numpy().tolist())
-            val_outputs.extend(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
-
-        return print_metrics(val_targets,val_outputs, epoch_loss,'Validation')
 
 if __name__ == "__main__":
     train()

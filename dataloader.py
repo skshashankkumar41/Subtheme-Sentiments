@@ -1,15 +1,11 @@
+import config
 from dataset import SentimentDataset
-from transformers import BertTokenizer
 from torch.utils.data import DataLoader
-
-MAX_LEN = 128
-PRE_TRAINED_MODEL = "bert-base-uncased"
-tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL)
 
 # create datasets from preprocessed train and test files and then return data loaders for both
 def get_loader(rootPath, train_batch_size=32, test_batch_size = 8, shuffle=True, num_workers=8, pin_memory=True):
-    trainDataset = SentimentDataset(rootPath + 'train.pkl', tokenizer, MAX_LEN)
-    testDataset = SentimentDataset(rootPath + 'test.pkl', tokenizer, MAX_LEN)
+    trainDataset = SentimentDataset(rootPath + 'train.pkl', config.tokenizer, config.MAX_LEN)
+    testDataset = SentimentDataset(rootPath + 'test.pkl', config.tokenizer, config.MAX_LEN)
 
     trainLoader = DataLoader(
         dataset=trainDataset,

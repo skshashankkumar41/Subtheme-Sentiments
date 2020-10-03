@@ -1,6 +1,6 @@
 import torch
 import pandas as pd
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 
 # Pytorch dataset for the training of BERT model
 class SentimentDataset(Dataset):

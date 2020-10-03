@@ -1,5 +1,6 @@
 import torch 
 import pickle
+import config
 import numpy as np
 from model import SentimentMultilabel
 from transformers import BertConfig,BertTokenizer
@@ -9,17 +10,13 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-w", "--text", required = True, help="Input text")
 args = vars(ap.parse_args())
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_config = BertConfig()
-num_labels = 23
-MAX_LEN = 128
-PRE_TRAINED_MODEL = "bert-base-uncased"
 
-tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL)
-model = SentimentMultilabel(num_labels,model_config).to(device) 
-checkpoint = torch.load("output/bert_model.pth.tar")
+tokenizer = BertTokenizer.from_pretrained(config.PRE_TRAINED_MODEL)
+model = SentimentMultilabel(config.NUM_LABELS,model_config).to(config.device) 
+checkpoint = torch.load(config.MODEL_PATH)
 model.load_state_dict(checkpoint["state_dict"])
-encoder = open('output/encoder.pkl', 'rb')      
+encoder = open(config.ENCODER_PATH, 'rb')      
 le = pickle.load(encoder) 
 encoder.close() 
 
@@ -29,7 +26,7 @@ def inference(text,model,tokenizer):
             text,
             None,
             add_special_tokens=True,
-            max_length=MAX_LEN,
+            max_length=config.MAX_LEN,
             padding='max_length',
             truncation=True,
             return_token_type_ids=True

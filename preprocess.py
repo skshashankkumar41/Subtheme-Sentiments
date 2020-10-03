@@ -1,5 +1,6 @@
 import pandas as pd 
 import pickle 
+import config
 from collections import Counter
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
@@ -141,6 +142,6 @@ def loader(dfPath):
     return df 
 
 if __name__ == '__main__':
-    df = loader('input/Evaluation-dataset.csv')
+    df = loader(config.INPUT_FILE)
     split_and_save(df)
     
