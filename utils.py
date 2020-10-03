@@ -1,6 +1,7 @@
 import torch 
 import config
 import pickle
+import numpy as np
 from sklearn import metrics
 
 def print_metrics(true, pred, loss, type):

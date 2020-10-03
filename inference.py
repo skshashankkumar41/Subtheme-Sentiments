@@ -10,6 +10,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-w", "--text", required = True, help="Input text")
 args = vars(ap.parse_args())
 
+device = config.device
 model_config = BertConfig()
 
 tokenizer = BertTokenizer.from_pretrained(config.PRE_TRAINED_MODEL)
@@ -40,7 +41,7 @@ def inference(text,model,tokenizer):
     prediction = [1 if i > 0.35 else 0 for i in outputs[0]]
 
     labels = le.inverse_transform(np.array([prediction]))[0]
-    print("Labels -- {}".format(labels))
+    print("Labels -- {}".format(list(labels)))
     return list(labels)
 
 
