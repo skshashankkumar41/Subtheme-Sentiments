@@ -101,7 +101,8 @@ Output -> ['ease of booking positive', 'location positive', 'value for money pos
 This file contains all the configuration for preprocessing, training, validation and inference of the model.
 <br>
 
-<b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)</b>
+<b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)
+</b>
 <br>
 This file preprocess the original data, converts the data to multi label classification problem and also stores the train and validation pickle data. All the methods for preprocessing are commented preety well in the file itself.
 <br>
