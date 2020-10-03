@@ -23,4 +23,4 @@ def get_loader(rootPath, train_batch_size=32, test_batch_size = 8, shuffle=True,
         pin_memory=pin_memory
     )
 
-    return trainLoader, testLoader, tokenizer
+    return trainLoader, testLoader, config.tokenizer
