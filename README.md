@@ -7,13 +7,17 @@ Idea is to develop an approach that given a sample will identify the sub themes 
 </center>
 
 ## Approach
-I considered this problem as a Multi-Label classification and used pre-trained BERT models with fine-tuning to train. By doing [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) I came to know there are around 10k datapoints and around 90 unique labels but most of them are noisy and are present in very low frequency. So, after doing some preprocessing and undersampling some more frequently occuring labels at the end we have 23 unique labels and around 6k datapoints. Look [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) for more details.
+### Data Exploration
+During [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) I came to know that there are around 10k datapoints and around 90 unique labels but most of them are noisy and are present in very low frequency. So, after doing some preprocessing and undersampling some more frequently occuring labels at the end we have 23 unique labels and around 6k datapoints. Look [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf) for more details.
+
+### My Approach
+I considered this problem as a Multi-Label classification and used pre-trained BERT models with fine-tuning to train. 
 
 I choosed Pretrained BERT models to leverage the information of Language models and as the data is mostly consist of reviews, Language models would work fine and also It is very easy to Implement. I have used Binary Cross Entropy with Logits as Loss Function.
 
 I have tried both bert-base-uncased and bert-large-uncased pretrained models to train the data, bert-large-uncased is performing slightly better but due to its larger size, In this project I stick with the bert-base-uncased. You can download the trained model from [here](https://drive.google.com/file/d/1kcs0WctkGAqLrzSI1QhsnmK05AG5gopd/view?usp=sharing).
 
-## Performance Metrics 
+### Performance Metrics 
 **Micro f1 score:**
 Calculate metrics globally by counting the total true positives, false negatives and false positives. This is a better metric when we have class imbalance.
 
@@ -69,6 +73,7 @@ After 5 Epochs model started overfitting. More Detail in [Models Analysis](https
 4. I have used BCE Loss, some other loss functions could also improve results.
 
 ## Usage
+Clone the repository and run the following commands from the repository directory.
 #### Install project dependencies from requirements.txt
 ```
 pip install -r requirements.txt
