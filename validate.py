@@ -6,6 +6,7 @@ device = config.device
 def loss_fun(outputs, targets):
     return torch.nn.BCEWithLogitsLoss()(outputs, targets)
 
+# function to validate the validation data from trained model
 def validate(model, testLoader):
     model.eval()
     val_targets = []

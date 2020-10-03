@@ -17,6 +17,7 @@ class SentimentDataset(Dataset):
     def __getitem__(self,index):
         text = self.texts[index]
         target = self.targets[index]
+        # encoding the texts with pretrained bert tokenizer
         inputs = self.tokenizer.encode_plus(
             text,
             None,

@@ -14,6 +14,7 @@ num_labels = config.NUM_LABELS
 lr = config.LEARNING_RATE
 epochs = config.EPOCHS
 
+# evaluation metrics data, for analysis of models performance
 eval_metrics = {
             "epochs": [],
             "train_loss": [],
@@ -26,19 +27,23 @@ eval_metrics = {
             "val_hamming_loss": [],
         }
 
+# Binary cross entropy with logits loss function
 def loss_fun(outputs, targets):
     return torch.nn.BCEWithLogitsLoss()(outputs, targets)
 
+#function to train the model 
 def train():
     model = SentimentMultilabel(num_labels,model_config).to(device)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
 
+    # creating the training and validation data loaders 
     trainLoader, testLoader, _ = get_loader('output/')
 
     for epoch in range(1,epochs+1):
         eval_metrics["epochs"].append(epoch)
         model.train()
         epoch_loss = 0
+        # training actual and prediction for each epoch for printing metrics
         train_targets = []
         train_outputs = []
         for _, data in enumerate(trainLoader):
@@ -59,6 +64,8 @@ def train():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+        
+        # calculating the evaluation scores for both training and validation data
         train_f1_micro, train_f1_macro, train_hamming,train_loss = print_metrics(train_targets,train_outputs,epoch_loss, 'Training')
         val_f1_micro, val_f1_macro, val_hamming, val_loss = validate(model, testLoader)
         eval_metrics['training_f1_micro'].append(train_f1_micro)
@@ -70,6 +77,7 @@ def train():
         eval_metrics["train_loss"].append(train_loss)
         eval_metrics["val_loss"].append(val_loss)
     
+    # saving the metrics and trained model for inference and model analysis
     save_metrics(eval_metrics,'bert_base')
     checkpoint = {"state_dict": model.state_dict()}
     save_checkpoint(checkpoint)

@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 from sklearn import metrics
 
+# Function to take true and predicted labels and calculate and print multiple metrics
 def print_metrics(true, pred, loss, type):
     pred = np.array(pred) >= 0.35
     hamming_loss = metrics.hamming_loss(true,pred)
@@ -21,12 +22,14 @@ def print_metrics(true, pred, loss, type):
     print("------------------------------------")
     return f1_score_micro, f1_score_macro, hamming_loss, loss 
 
+# fucntion to save the metrics for model analysis 
 def save_metrics(eval_metrics,file_name):
     eval = open('output/{}_metrics.pkl'.format(file_name), 'ab') 
     pickle.dump(eval_metrics, eval)                      
     eval.close()
     return True
 
+# fucntion to save the model for inference
 def save_checkpoint(state, filename=config.MODEL_PATH):
     print("=> Saving Model")
     torch.save(state, filename)
