@@ -8,6 +8,6 @@ NUM_LABELS = 23
 MODEL_PATH = "output/bert_model.pth.tar"
 ENCODER_PATH = "output/encoder.pkl"
 LEARNING_RATE = 1e-04
-EPOCHS = 10
+EPOCHS = 5
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL)
