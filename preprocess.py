@@ -128,15 +128,20 @@ def loader(dfPath):
 
     df =  df[['text','target']]
 
+    # replacing labels that are similar but have some spelling mistakes
     replace_label(df, 'advisor/agent service positive','advisoragent service positive')
     replace_label(df, 'advisor/agent service negative','advisoragent service negative')
     replace_label(df, 'tyre age/dot code negative','tyre agedot code negative')
     
+    # removing noisy labels 
     df = remove_noisy_labels(df)
+    # combining labels that have frequence less than 100
     df = combine_labels(df)
+    # undersampling high frequency labels datapoints 
     df = undersample_labels(df, ['value for money positive'], 0.1)
     df = undersample_labels(df, ['garage service positive'], 0.2)
     df = undersample_labels(df, ['value for money positive','garage service positive'], 0.2)
+    # encoding the labels for training
     df = encode_labels(df)
 
     return df 
