@@ -11,6 +11,8 @@ I considered this problem as a Multi-Label classification and used pre-trained B
 
 I choosed Pretrained BERT models to leverage the information of Language models and as the data is mostly consist of reviews, Language models would work fine and also It is very easy to Implement. I have used Binary Cross Entropy with Logits as Loss Function.
 
+I have tried both bert-base-uncased and bert-large-uncased pretrained models to train the data, bert-large-uncased is performing slightly better but due to its larger size, In this project I stick with the bert-base-uncased. You can download the trained model from [here](https://drive.google.com/file/d/1kcs0WctkGAqLrzSI1QhsnmK05AG5gopd/view?usp=sharing).
+
 ## Performance Metrics 
 **Micro f1 score:**
 Calculate metrics globally by counting the total true positives, false negatives and false positives. This is a better metric when we have class imbalance.
@@ -63,7 +65,7 @@ After 5 Epochs model started overfitting. More Detail in [Models Analysis](https
 ## Shortcomings and Improvements 
 1. As in [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf), we combined labels to single label based on sentiment which have frequency less than 100 due to which we are ignoring some labels, we can improve this by oversampling those labels by using combinations of co-occuring labels.
 2. By Experimenting with layers on top of pre-trained BERT could also improve result.
-3. By doing some Parameter tuning of Batch Sizes, Learning Rate, we could improve results.
+3. By doing some Hyper-Parameter tuning of Batch Sizes, Learning Rate, we could improve results.
 4. I have used BCE Loss, some other loss functions could also improve results.
 
 ## Usage
@@ -76,10 +78,31 @@ pip install -r requirements.txt
 ```
 python preprocess.py
 ```
-#### Training and Evaluating Model 
+#### Training, Evaluating and Saving Model 
 ```
 python train.py
 ```
+### Inference
+```
+python inference.py --text "Your Review Text"
+```
+
+## Files 
+<b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)</b><br>
+This file preprocess the original data, converts the data to multi label classification problem and also stores the train and validation pickle data. All the methods for preprocessing are commented preety well in the file itself.
+<b>[dataset.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/dataset.py)</b><br>
+This file creates the custom pytorch dataset using bert tokenizer with all the features required by bert model.
+<b>[dataloader.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/dataloader.py)</b><br>
+This file creates the dataset loader for both train and validation datasets in batches for training.
+<b>[model.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/model.py)</b><br>
+This file creates the custom bert model for multi-label classification, it uses huggingface transformers library to load pre-trained bert.
+<b>[train.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/train.py)</b><br>
+This file creates the training and validation functions to train and validate the model, Evaluation metrics are also defined in this file itself.
+<b>[utils.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/utils.py)</b><br>
+This file has some utilility functions to save models etc.
+<b>[inference.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/inference.py)</b><br>
+This file contains the function for inference, we can give the reviews directly and it will predict labels based on reviews.
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

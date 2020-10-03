@@ -3,6 +3,11 @@ import pickle
 import numpy as np
 from model import SentimentMultilabel
 from transformers import BertConfig,BertTokenizer
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-w", "--text", required = True, help="Input text")
+args = vars(ap.parse_args())
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_config = BertConfig()
@@ -43,4 +48,4 @@ def inference(text,model,tokenizer):
 
 
 if __name__ == '__main__':
-    labels = inference('Good price for well rated tyres',model,tokenizer)
+    labels = inference(args['text'],model,tokenizer)
