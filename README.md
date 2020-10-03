@@ -96,6 +96,11 @@ Output -> ['ease of booking positive', 'location positive', 'value for money pos
 ```
 
 ## Files 
+<b>[config.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/config.py)</b>
+<br>
+This file contains all the configuration for preprocessing, training, validation and inference of the model.
+<br>
+
 <b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)</b>
 <br>
 This file preprocess the original data, converts the data to multi label classification problem and also stores the train and validation pickle data. All the methods for preprocessing are commented preety well in the file itself.
@@ -118,8 +123,12 @@ This file creates the custom bert model for multi-label classification, it uses 
 This file creates the training and validation functions to train and validate the model, Evaluation metrics are also defined in this file itself.
 <br>
 
+<b>[validate.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/validate.py)</b><br>
+This file contains the validation function that requires dataloader and model to validate the dataset.
+<br>
+
 <b>[utils.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/utils.py)</b><br>
-This file has some utilility functions to save models etc.
+This file has some utilility functions to save models, print metrics etc.
 <br>
 
 <b>[inference.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/inference.py)</b>
