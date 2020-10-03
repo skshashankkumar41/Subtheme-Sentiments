@@ -88,20 +88,30 @@ python inference.py --text "Your Review Text"
 ```
 
 ## Files 
-<b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)</b><br>
+<b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)</b>
+<br>
 This file preprocess the original data, converts the data to multi label classification problem and also stores the train and validation pickle data. All the methods for preprocessing are commented preety well in the file itself.
-<b>[dataset.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/dataset.py)</b><br>
+<br>
+<b>[dataset.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/dataset.py)</b>
+<br>
 This file creates the custom pytorch dataset using bert tokenizer with all the features required by bert model.
-<b>[dataloader.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/dataloader.py)</b><br>
+<br>
+<b>[dataloader.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/dataloader.py)</b>
+<br>
 This file creates the dataset loader for both train and validation datasets in batches for training.
 <b>[model.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/model.py)</b><br>
 This file creates the custom bert model for multi-label classification, it uses huggingface transformers library to load pre-trained bert.
+<br>
 <b>[train.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/train.py)</b><br>
 This file creates the training and validation functions to train and validate the model, Evaluation metrics are also defined in this file itself.
+<br>
 <b>[utils.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/utils.py)</b><br>
 This file has some utilility functions to save models etc.
-<b>[inference.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/inference.py)</b><br>
+<br>
+<b>[inference.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/inference.py)</b>
+<br>
 This file contains the function for inference, we can give the reviews directly and it will predict labels based on reviews.
+<br>
 
 
 ## Contributing
