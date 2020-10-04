@@ -31,7 +31,7 @@ eval_metrics = {
 def loss_fun(outputs, targets):
     return torch.nn.BCEWithLogitsLoss()(outputs, targets)
 
-#function to train the model 
+# function to train the model 
 def train():
     model = SentimentMultilabel(num_labels,model_config).to(device) if config.model == "base" else SentimentMultilabelLarge(num_labels,model_config).to(device)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)

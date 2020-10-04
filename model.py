@@ -16,6 +16,7 @@ class SentimentMultilabel(BertPreTrainedModel):
         output = self.classifier(output)
         return output
 
+# Bert Large Pretrained model with final classifier 
 class SentimentMultilabelLarge(BertPreTrainedModel):
     def __init__(self, num_labels, conf):
         super(SentimentMultilabelLarge, self).__init__(conf)
