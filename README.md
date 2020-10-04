@@ -134,7 +134,7 @@ This file has some utility functions to save models, print metrics, etc.
 
 <b>[inference.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/inference.py)</b>
 <br>
-This file contains the function for inference, we can give the reviews directly and it will predict labels based on reviews.
+This file contains the function for inference, we can give the reviews directly and it will predict labels using the trained bert model.
 <br>
 
 
