@@ -18,7 +18,7 @@ class SentimentMultilabel(BertPreTrainedModel):
 
 class SentimentMultilabelLarge(BertPreTrainedModel):
     def __init__(self, num_labels, conf):
-        super(SentimentMultilabel, self).__init__(conf)
+        super(SentimentMultilabelLarge, self).__init__(conf)
         self.bert = BertModel.from_pretrained(config.PRE_TRAINED_MODEL)
         self.drop = torch.nn.Dropout(0.4)
         self.classifier = torch.nn.Linear(1024, num_labels)
