@@ -33,7 +33,7 @@ Calculate metrics for each label, and find their unweighted mean. This does not 
 [https://www.kaggle.com/wiki/HammingLoss](https://www.kaggle.com/wiki/HammingLoss)
 
 ## Results 
-After 5 Epochs model started overfitting. More Detail in [Models Analysis](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Model-Analysis.pdf) 
+After 5 Epochs model started overfitting. More Details in [Models Analysis](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Model-Analysis.pdf) 
 <table class="tg">
 <thead>
   <tr>
