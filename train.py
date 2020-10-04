@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 import config
 from transformers import BertTokenizer, BertConfig
-from model import SentimentMultilabel
+from model import SentimentMultilabel,SentimentMultilabelLarge
 from dataloader import get_loader
 from validate import validate
 from utils import save_checkpoint,print_metrics, save_metrics                                 
@@ -33,7 +33,7 @@ def loss_fun(outputs, targets):
 
 #function to train the model 
 def train():
-    model = SentimentMultilabel(num_labels,model_config).to(device)
+    model = SentimentMultilabel(num_labels,model_config).to(device) if config.model == "base" else SentimentMultilabelLarge(num_labels,model_config).to(device)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
 
     # creating the training and validation data loaders 
@@ -78,7 +78,7 @@ def train():
         eval_metrics["val_loss"].append(val_loss)
     
     # saving the metrics and trained model for inference and model analysis
-    save_metrics(eval_metrics,'bert_base')
+    save_metrics(eval_metrics,'bert_base' if config.model == 'base' else 'bert_large')
     checkpoint = {"state_dict": model.state_dict()}
     save_checkpoint(checkpoint)
     return True
