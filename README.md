@@ -15,7 +15,7 @@ I considered this problem as a Multi-Label classification and used pre-trained B
 
 I chose Pretrained BERT models to leverage the information of Language models and as the data mostly consist of reviews, Language models would work fine, and also It is very easy to Implement. I have used Binary Cross Entropy with Logits as Loss Function.
 
-I have tried both bert-base-uncased and bert-large-uncased pre-trained models to train the data, bert-large-uncased is performing slightly better but due to its larger size, In this project, I stick with the bert-base-uncased. You can download the trained model from [here](https://drive.google.com/file/d/1kcs0WctkGAqLrzSI1QhsnmK05AG5gopd/view?usp=sharing).
+I have tried both bert-base-uncased and bert-large-uncased pre-trained models to train the data. For more details check [Model Analysis](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Model-Analysis.pdf) bert-large-uncased is performing slightly better but due to its larger size, In this project, I stick with the bert-base-uncased. You can download the trained model from [here](https://drive.google.com/file/d/1kcs0WctkGAqLrzSI1QhsnmK05AG5gopd/view?usp=sharing).
 
 ### Performance Metrics 
 **Micro f1 score:**
@@ -67,8 +67,8 @@ After 5 Epochs model started overfitting. More Detail in [Models Analysis](https
 </table>
 
 ## Shortcomings and Improvements 
-1. As in [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf), we combined labels to single label based on the sentiment which have a frequency less than 100 due to which we are ignoring some labels, we can improve this by oversampling those labels by using combinations of co-occuring labels.
-2. By Experimenting with layers on top of pre-trained BERT could also improve results.
+1. As in [Data Exploration](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/output/Data-Exploration.pdf), we combined labels to single label based on the sentiment which have a frequency less than 100 due to which we are ignoring some labels, we can improve this by oversampling those labels by using combinations of co-occurring labels.
+2. By experimenting with layers on top of pre-trained BERT could also improve results.
 3. By doing some Hyper-Parameter tuning of Batch Sizes, Learning Rate, we could improve results.
 4. I have used BCE Loss, some other loss functions could also improve results.
 
@@ -98,7 +98,7 @@ Output -> ['ease of booking positive', 'location positive', 'value for money pos
 ## Files 
 <b>[config.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/config.py)</b>
 <br>
-This file contains all the configuration for preprocessing, training, validation and inference of the model.
+This file contains all the configuration for preprocessing, training, validation, and inference of the model.
 <br>
 
 <b>[preprocess.py](https://github.com/skshashankkumar41/Subtheme-Sentiments/blob/master/preprocess.py)
